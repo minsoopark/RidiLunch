@@ -2,6 +2,7 @@
 
 import random, codecs, os
 
+menus = '화로사랑|야끼도리센|도원|백암순대국밥|피플일레븐|제주도새기|아비꼬|연부대찌개|썬데이반점|취홍|고슴도치|대치동불고기|새마을식당|버거킹'
 
 def lunch():
     arr = open_menus()
@@ -16,8 +17,7 @@ def lunch():
 
 
 def open_menus():
-    f = open('menus', 'r')
-    data = f.read().decode('utf-8').strip()
+    data = menus.decode('utf-8').strip()
     return data.split('|')
 
 
