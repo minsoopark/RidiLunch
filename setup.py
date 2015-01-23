@@ -1,6 +1,6 @@
 from setuptools import setup
 
-setup(name='lunch',
+setup(name='rlunch',
       version='0.1',
       description='The lunch recommendation system for Ridibooks employees',
       url='http://github.com/minsoopark/RidiLunch',
@@ -10,5 +10,5 @@ setup(name='lunch',
       packages=['lunch'],
       zip_safe=False,
       entry_points = {
-        'console_scripts': ['lunch=lunch.command_line:main'],
+        'console_scripts': ['rlunch=lunch.command_line:main'],
       })

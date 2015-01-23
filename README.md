@@ -7,8 +7,8 @@ _(최근 3개의 메뉴는 선택되지 않습니다.)_
 # How To
 
 ```
-$ python setup.py install
-$ lunch
+$ pip install rlunch
+$ rlunch
 > 아비꼬
 ```
 
