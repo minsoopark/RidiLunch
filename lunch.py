@@ -26,7 +26,7 @@ def is_recently_eaten(choice):
         f = open('logs', 'w')
         f.close()
 
-    f = open('list.txt', 'r')
+    f = open('logs', 'r')
     data = f.read().strip()
     arr = data.split('|')
 
