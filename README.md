@@ -7,7 +7,9 @@ _(최근 3개의 메뉴는 선택되지 않습니다.)_
 # How To
 
 ```
-$ python lunch.py
+$ python setup.py install
+$ lunch
+> 아비꼬
 ```
 
 # Menu List
