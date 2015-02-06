@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from rullet import rullet
 import random, codecs, os, sys
 
 menus = '화로사랑|야끼도리센|도원|백암순대국밥|피플일레븐|제주도새기|아비꼬|연부대찌개|썬데이반점|취홍|고슴도치|대치동불고기|새마을식당|버거킹|고운님|본디마을'
@@ -10,10 +11,13 @@ sort = 'k|j|c|k|a|k|j|k|c|c|k|k|k|a|k|k'
 # f: 먼 m: 보통 n: 가까운
 distance = 'm|n|m|m|n|n|f|m|m|n|f|m|f|n|n|n'
 
-def lunch():
+def lunch(param=[]):
     arr = open_menus()
     
-    args = sys.argv
+    if len(param) > 0:
+        args = ['', param]
+    else:
+        args = sys.argv
     
     choice = process_args(args)
     
@@ -104,7 +108,7 @@ def process_args(args):
         print_help()
         return None
     
-    choice = results[(int) (random.random() * len(results))]
+    choice = rullet.run(results)
     return choice
 
 
