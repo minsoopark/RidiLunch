@@ -26,6 +26,10 @@ $ rlunch -sc
 > 취홍
 ```
 
+#Dependencies
+
+- rullet==0.1.2
+
 # Menu List
 
 - 화로사랑
