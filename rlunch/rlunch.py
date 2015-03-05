@@ -30,6 +30,8 @@ menus.append(Menu(u'고운님', 'n', 'k'))
 menus.append(Menu(u'본디마을', 'n', 'k'))
 menus.append(Menu(u'아라섬', 'n', 'j'))
 menus.append(Menu(u'뜰에서화로구이', 'n', 'k'))
+menus.append(Menu(u'김밥천국', 'n', 'k'))
+menus.append(Menu(u'스모키살룬', 'n', 'w'))
 
 distance_options = ('f', 'm', 'n')
 sort_options = ('k', 'c', 'j', 'w')
