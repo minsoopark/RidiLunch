@@ -2,49 +2,55 @@
 
 from rullet import rullet
 import random, codecs, os, sys
+import argparse
 
-menus = '화로사랑|야끼도리센|도원|백암순대국밥|피플일레븐|제주도새기|아비꼬|연부대찌개|썬데이반점|취홍|고슴도치|대치동불고기|새마을식당|버거킹|고운님|본디마을'
+class Menu:
+    def __init__(self, name, distance, sort):
+        self.name = name
+        self.distance = distance
+        self.sort = sort
 
-# k: 한식 j: 일식 c: 중식 a: 양식
-sort = 'k|j|c|k|a|k|j|k|c|c|k|k|k|a|k|k'
+menus = []
+menus.append(Menu(u'화로사랑', 'm', 'k'))
+menus.append(Menu(u'야끼도리센', 'n', 'j'))
+menus.append(Menu(u'도원', 'm', 'c'))
+menus.append(Menu(u'백암순대국밥', 'm', 'k'))
+menus.append(Menu(u'피플일레븐', 'n', 'w'))
+menus.append(Menu(u'제주도새기', 'n', 'k'))
+menus.append(Menu(u'아비꼬', 'f', 'j'))
+menus.append(Menu(u'연부대찌개', 'm', 'k'))
+menus.append(Menu(u'썬데이반점', 'm', 'c'))
+menus.append(Menu(u'취홍', 'n', 'c'))
+menus.append(Menu(u'고슴도치', 'f', 'k'))
+menus.append(Menu(u'대치동불고기', 'm', 'k'))
+menus.append(Menu(u'새마을식당', 'f', 'k'))
+menus.append(Menu(u'버거킹', 'n', 'w'))
+menus.append(Menu(u'고운님', 'n', 'k'))
+menus.append(Menu(u'본디마을', 'n', 'k'))
 
-# f: 먼 m: 보통 n: 가까운
-distance = 'm|n|m|m|n|n|f|m|m|n|f|m|f|n|n|n'
+distance_options = ('f', 'm', 'n')
+sort_options = ('k', 'c', 'j', 'w')
 
 def lunch(param=[]):
-    arr = open_menus()
-    
-    if len(param) > 0:
-        args = ['', param]
-    else:
-        args = sys.argv
-    
-    choice = process_args(args)
-    
-    if not choice:
-        return
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-d', '--distance', choices=distance_options, help=u'f:먼 m:보통 n:가까운')
+    parser.add_argument('-s', '--sort', choices=sort_options, help=u'k:한식 c:중식 j:일식 w:양식')
+    args = parser.parse_args()
 
-    if is_recently_eaten(choice):
-        lunch()
-        return
+    while True:
+        choice = rullet.run(menus)
 
-    print choice
-    add_recently_eaten(choice)
+        if is_recently_eaten(choice.name):
+            continue
+        if args.distance is not None and choice.distance != args.distance:
+            continue
+        if args.sort is not None and choice.sort != args.sort:
+            continue
 
+        break
 
-def open_menus():
-    data = menus.decode('utf-8').strip()
-    return data.split('|')
-
-
-def open_sorts():
-    data = sort.decode('utf-8').strip()
-    return data.split('|')
-
-
-def open_distances():
-    data = distance.decode('utf-8').strip()
-    return data.split('|')
+    print choice.name
+    add_recently_eaten(choice.name)
 
 
 def is_recently_eaten(choice):
@@ -83,41 +89,6 @@ def add_recently_eaten(choice):
 
     f.write('|'.join(arr).encode('utf-8').strip())
     f.close()
-
-
-def process_args(args):
-    arr = open_menus()
-    darr = open_distances()
-    sarr = open_sorts()
-    
-    results = []
-    if len(args) >= 2:
-        f_arg = args[1]
-        if f_arg.startswith('-d'):
-            for idx, d in enumerate(darr):
-                if d == f_arg[2:]:
-                    results.append(arr[idx])
-        elif f_arg.startswith('-s'):
-            for idx, s in enumerate(sarr):
-                if s == f_arg[2:]:
-                    results.append(arr[idx])
-    else:
-        results = arr
-        
-    if len(results) == 0:
-        print_help()
-        return None
-    
-    choice = rullet.run(results)
-    return choice
-
-
-def print_help():
-    print ''
-    print '<< Options Help >>'
-    print u'-d : 거리별 추첨 (f: 먼, m: 보통, n: 가까운)'
-    print u'-s : 종류별 추첨 (k: 한식, c: 중식, j: 일식, a:양식)'
-    print ''
 
 
 if __name__ == '__main__':
