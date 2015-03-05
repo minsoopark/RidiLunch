@@ -32,6 +32,7 @@ $ rlunch -df -sk
 #Dependencies
 
 - rullet==0.1.2
+- click==3.3
 
 # Menu List
 
