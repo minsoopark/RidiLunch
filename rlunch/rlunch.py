@@ -3,13 +3,13 @@
 from rullet import rullet
 import random, codecs, os, sys
 
-menus = '화로사랑|야끼도리센|도원|백암순대국밥|피플일레븐|제주도새기|아비꼬|연부대찌개|썬데이반점|취홍|고슴도치|대치동불고기|새마을식당|버거킹|고운님|본디마을'
+menus = '화로사랑|야끼도리센|도원|백암순대국밥|피플일레븐|제주도새기|아비꼬|연부대찌개|썬데이반점|취홍|고슴도치|대치동불고기|새마을식당|버거킹|고운님|본디마을|아라섬|뜰에서화로구이'
 
 # k: 한식 j: 일식 c: 중식 a: 양식
-sort = 'k|j|c|k|a|k|j|k|c|c|k|k|k|a|k|k'
+sort = 'k|j|c|k|a|k|j|k|c|c|k|k|k|a|k|k|j|k'
 
 # f: 먼 m: 보통 n: 가까운
-distance = 'm|n|m|m|n|n|f|m|m|n|f|m|f|n|n|n'
+distance = 'm|n|m|m|n|n|f|m|m|n|f|m|f|n|n|n|n|n'
 
 def lunch(param=[]):
     arr = open_menus()
