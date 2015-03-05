@@ -2,7 +2,7 @@
 
 from rullet import rullet
 import random, codecs, os, sys
-import argparse
+import click
 
 
 class Menu:
@@ -35,20 +35,18 @@ distance_options = ('f', 'm', 'n')
 sort_options = ('k', 'c', 'j', 'w')
 
 
-def lunch(param=[]):
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-d', '--distance', choices=distance_options, help=u'f:먼 m:보통 n:가까운')
-    parser.add_argument('-s', '--sort', choices=sort_options, help=u'k:한식 c:중식 j:일식 w:양식')
-    args = parser.parse_args()
-
+@click.command()
+@click.option('-d', '--distance', type=click.Choice(distance_options), help=u'f:먼 m:보통 n:가까운')
+@click.option('-s', '--sort', type=click.Choice(sort_options), help=u'k:한식 c:중식 j:일식 w:양식')
+def lunch(distance, sort):
     while True:
         choice = rullet.run(menus)
 
         if is_recently_eaten(choice.name):
             continue
-        if args.distance is not None and choice.distance != args.distance:
+        if distance is not None and choice.distance != distance:
             continue
-        if args.sort is not None and choice.sort != args.sort:
+        if sort is not None and choice.sort != sort:
             continue
 
         break
