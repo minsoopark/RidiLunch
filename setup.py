@@ -10,7 +10,8 @@ setup(name='rlunch',
       packages=['rlunch'],
       zip_safe=False,
       install_requires=[
-        'rullet >= 0.1.2'
+        'rullet >= 0.1.2',
+        'click >= 3.3'
       ],
       entry_points = {
         'console_scripts': ['rlunch=rlunch.command_line:main'],
