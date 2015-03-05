@@ -4,6 +4,7 @@ from rullet import rullet
 import random, codecs, os, sys
 import argparse
 
+
 class Menu:
     def __init__(self, name, distance, sort):
         self.name = name
@@ -27,9 +28,12 @@ menus.append(Menu(u'새마을식당', 'f', 'k'))
 menus.append(Menu(u'버거킹', 'n', 'w'))
 menus.append(Menu(u'고운님', 'n', 'k'))
 menus.append(Menu(u'본디마을', 'n', 'k'))
+menus.append(Menu(u'아라섬', 'n', 'j'))
+menus.append(Menu(u'뜰에서화로구이', 'n', 'k'))
 
 distance_options = ('f', 'm', 'n')
 sort_options = ('k', 'c', 'j', 'w')
+
 
 def lunch(param=[]):
     parser = argparse.ArgumentParser()
