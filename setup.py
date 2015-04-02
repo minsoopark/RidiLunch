@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='rlunch',
-      version='0.3.0',
+      version='0.3.1',
       description='The lunch recommendation system for Ridibooks employees',
       url='http://github.com/minsoopark/RidiLunch',
       author='Minsoo Park',
