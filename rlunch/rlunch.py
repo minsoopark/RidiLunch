@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from rullet import rullet
-import random, codecs, os, sys
+import codecs
+import os
+
 import click
+from rullet import rullet
 
 
 class Menu:
@@ -38,62 +40,65 @@ sort_options = ('k', 'c', 'j', 'w')
 
 
 @click.command()
-@click.option('-d', '--distance', type=click.Choice(distance_options), help=u'f:먼 m:보통 n:가까운')
-@click.option('-s', '--sort', type=click.Choice(sort_options), help=u'k:한식 c:중식 j:일식 w:양식')
+@click.option('-d', '--distance',
+              type=click.Choice(distance_options), help=u'f:먼 m:보통 n:가까운')
+@click.option('-s', '--sort',
+              type=click.Choice(sort_options), help=u'k:한식 c:중식 j:일식 w:양식')
 def lunch(distance, sort):
     while True:
         choice = rullet.run(menus)
 
         if is_recently_eaten(choice.name):
             continue
-        if distance is not None and choice.distance != distance:
+        if distance and choice.distance != distance:
             continue
-        if sort is not None and choice.sort != sort:
+        if sort and choice.sort != sort:
             continue
 
         break
 
     print choice.name
+
     add_recently_eaten(choice.name)
 
 
 def is_recently_eaten(choice):
-    if not os.path.exists('logs'):
-        f = open('logs', 'w')
-        f.close()
+    eaten_menus = get_eaten_menus()
 
-    f = open('logs', 'r')
-    data = f.read().strip()
-    arr = data.split('|')
-
-    f.close()
-    
-    for str in arr:
-        if choice == str.decode('utf-8').strip():
+    for menu in eaten_menus:
+        if choice == menu.strip():
             return True
 
     return False
 
 
 def add_recently_eaten(choice):
-    f = codecs.open('logs', 'r', encoding='utf-8')
-    data = f.read().strip()
-    arr = data.split('|')
+    eaten_menus = get_eaten_menus()
+    eaten_menus.append(choice)
 
-    if ''.decode('utf-8') in arr:
-        arr.remove('')
+    remove_file()
 
-    f.close()
-    
-    f = open('logs', 'w')
-    arr.append(choice)
+    if len(eaten_menus) > 3:
+        eaten_menus = eaten_menus[-3:]
 
-    if len(arr) >= 4:
-        arr = arr[1:4]
+    with codecs.open('logs', 'w+', encoding='utf-8') as f:
+        f.write('|'.join(eaten_menus))
 
-    f.write('|'.join(arr).encode('utf-8').strip())
-    f.close()
 
+def get_eaten_menus():
+    eaten_menus = []
+    if not os.path.exists('logs'):
+        open('logs', 'a').close()
+
+    with codecs.open('logs', 'r', encoding='utf-8') as f:
+        data = f.read().strip()
+        eaten_menus = data.split('|')
+
+    return eaten_menus
+
+
+def remove_file():
+    os.remove("logs")
 
 if __name__ == '__main__':
     lunch()
